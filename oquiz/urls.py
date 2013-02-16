@@ -9,6 +9,7 @@ from quiz.views import main_page, user_page
 urlpatterns = patterns('',
     (r'^$', main_page),
     (r'^user/(\w+)/$', user_page),
+    (r'^login/$', 'django.contrib.auth.views.login'),
     # Examples:
     # url(r'^$', 'oquiz.views.home', name='home'),
     # url(r'^oquiz/', include('oquiz.foo.urls')),

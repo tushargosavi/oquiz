@@ -1,20 +1,16 @@
 # Create your views here.
 
 from django.http import HttpResponse, Http404
-from django.template import Context
+from django.template import Context,RequestContext
 from django.template.loader import get_template
+from django.views.decorators.csrf import csrf_exempt
+from django.shortcuts import render_to_response, render
 from django.contrib.auth.models import User
 from quiz.models import Question, Answer
 
 def main_page(request):
-    template = get_template("quiz/main_page.html")
-    variable = Context({
-            'head_title' : "Online Quiz",
-            'page_title' : "Welcome to Online Quiz",
-            'page_body' : "Where you can prepare of competative exams"
-            })
-    output = template.render(variable)
-    return HttpResponse(output)
+    return render(request, 'quiz/main_page.html',
+           { 'user' : request.user })
 
 def user_page(request, username):
     try:
@@ -25,7 +21,7 @@ def user_page(request, username):
     questions = Question.objects.all()
     
     template = get_template("quiz/user_page.html")
-    variables = Context({
+    variables = RequestContext({
             'username' : username,
             'questions' : questions
             })

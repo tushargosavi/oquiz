@@ -1,9 +1,15 @@
 <html>
   <head>
-    <title> {{ head_title }}  </title>
+    <title> Online Quiz  </title>
   </head>
   <body>
-    <h1> {{ page_title }} </h1>
-    <p> {{ page_body }} </p>
+    <h1> Welcome to online quize</h1>
+    {% if user.username %}
+    <p>Welcome {{ user.username }}</p>
+    You can add questions and give quizes
+    {% else %}
+    <p> Welcome to Online Quiz </p>
+    <p> You need to <a href="/login/">login</a> to see questions and give answers </p>
+    {% endif %}
   </body>
 </html>
