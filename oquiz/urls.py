@@ -4,10 +4,11 @@ from django.conf.urls import patterns, include, url
 # from django.contrib import admin
 # admin.autodiscover()
 
-from quiz.views import main_page
+from quiz.views import main_page, user_page
 
 urlpatterns = patterns('',
     (r'^$', main_page),
+    (r'^user/(\w+)/$', user_page),
     # Examples:
     # url(r'^$', 'oquiz.views.home', name='home'),
     # url(r'^oquiz/', include('oquiz.foo.urls')),

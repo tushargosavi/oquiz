@@ -1,0 +1,17 @@
+<html>
+  <head>
+    <title>Quiz User : {{ username }} </title>
+  </head>
+  <body>
+    <h1> Questions for {{ username }} </h1>
+    {% if bookmarks %}
+    <u1>
+      {% for question in questions %}
+      <li>A question </li>
+      {% endfor %}
+    </u1>
+    {% else %}
+    <p> No Questions found. </p>
+    {% endif %}
+  </body>
+</html>
