@@ -1,10 +1,8 @@
-<html>
-  <head>
-    <title>Quiz User : {{ username }} </title>
-  </head>
-  <body>
-    <h1> Questions for {{ username }} </h1>
-    {% if bookmarks %}
+{% extends "base.html" %}
+{% block title %}Quiz User : {{ username }} {% endblock %}
+{% block head %}Questions for {{ username }} {% endblock %}
+{% block content %}
+    {% if questions %}
     <u1>
       {% for question in questions %}
       <li>A question </li>
@@ -13,5 +11,4 @@
     {% else %}
     <p> No Questions found. </p>
     {% endif %}
-  </body>
-</html>
+{% endblock %}

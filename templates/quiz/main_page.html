@@ -1,15 +1,13 @@
-<html>
-  <head>
-    <title> Online Quiz  </title>
-  </head>
-  <body>
-    <h1> Welcome to online quize</h1>
-    {% if user.username %}
-    <p>Welcome {{ user.username }}</p>
-    You can add questions and give quizes
-    {% else %}
-    <p> Welcome to Online Quiz </p>
-    <p> You need to <a href="/login/">login</a> to see questions and give answers </p>
-    {% endif %}
-  </body>
-</html>
+{% extends "base.html" %}
+{% block title %}Welcome to Online Quiz{% endblock %}
+{% block head %}Welcome to online Quiz{% endblock %}
+{% block content %}
+{% if user.username %}
+<p>Welcome {{ user.username }}</p>
+You can add questions and give quizes
+{% else %}
+<p> Welcome to Online Quiz </p>
+<p> You need to <a href="/login/">login</a> to see questions and give
+answers and win prizes</p>
+{% endif %}
+{% endblock %}
