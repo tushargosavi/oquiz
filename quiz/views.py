@@ -7,6 +7,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.shortcuts import render_to_response, render
 from django.contrib.auth.models import User
 from django.contrib.auth import logout
+from django.contrib.auth.decorators import login_required
 from quiz.models import Question, Answer, Tag
 from quiz.forms import RegistrationForm
 from quiz.forms import QuestionSaveForm
@@ -15,6 +16,7 @@ def main_page(request):
     return render(request, 'quiz/main_page.html',
            { 'user' : request.user })
 
+@login_required
 def user_page(request, username):
     try:
         user = User.objects.get(username=username)
@@ -57,7 +59,7 @@ def register_page(request):
     return render(request, "registration/register.html",
                   { 'form' : form })
 
-
+@login_required
 def question_save_page(request):
     if request.method == 'POST':
         form = QuestionSaveForm(request.POST)
