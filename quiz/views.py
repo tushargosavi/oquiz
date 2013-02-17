@@ -22,7 +22,7 @@ def user_page(request, username):
     questions = Question.objects.all()
     
     template = get_template("quiz/user_page.html")
-    variables = Context({
+    variables = RequestContext(request, {
             'username' : username,
             'questions' : questions,
             })
