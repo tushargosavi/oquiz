@@ -36,10 +36,6 @@ def logout_page(request):
     logout(request)
     return HttpResponseRedirect("/")
 
-def register_error(request, form):
-    return render(request, "registration/register.html",
-           { 'form' : form });
-
 def register_page(request):
     if request.method == 'POST':
         form = RegistrationForm(request.POST)
@@ -55,16 +51,12 @@ def register_page(request):
             user.set_password(form.cleaned_data['password1'])
             user.save()
             return HttpResponseRedirect("/register/success")
-        else:
-            return register_error(request, form)
     else:
         form = RegistrationForm()
-        variables = RequestContext(request, {
-                'form' : form
-                })
-        return render_to_response(
-            'registration/register.html',
-            variables)
+
+    return render(request, "registration/register.html",
+                  { 'form' : form })
+
 
 def question_save_page(request):
     if request.method == 'POST':
@@ -87,10 +79,8 @@ def question_save_page(request):
                 question.tag_set.add(tag)
             question.save()
             return HttpResponseRedirect("/")
-        else:
-            return render(request, "quiz/question_save.html",
-                          { 'form' : form })
     else:
         form = QuestionSaveForm()
-        return render(request, "quiz/question_save.html",
-               { 'form' : form })
+
+    return render(request, "quiz/question_save.html",
+                  { 'form' : form })
