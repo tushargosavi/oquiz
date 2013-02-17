@@ -10,6 +10,8 @@
     <div id="nav">
       <a href="/">Home</a> |
       {% if user.is_authenticated %}
+         <a href="/question/add">Add question</a> |
+	 <a href="/user/{{ user.username }}/">View</a> |
          welcome {{ user.username }} (<a href="/logout">logout</a>)
       {% else %}
          <a href="/login">login</a> | 
