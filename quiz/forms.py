@@ -31,3 +31,26 @@ class RegistrationForm(forms.Form):
         except User.DoesNotExist:
             return username
         raise forms.ValidationError('Username is already taken.')
+
+class QuestionSaveForm(forms.Form):
+    text = forms.CharField(
+        label="Question",
+        widget=forms.TextInput(attrs={'size' : 64})
+        )
+    opt1 = forms.CharField(
+        label="Option 1",
+        widget=forms.TextInput(attrs={'size' : 64}))
+    opt2 = forms.CharField(
+        label="Option 1",
+        widget=forms.TextInput(attrs={'size' : 64}))
+    opt3 = forms.CharField(
+        label="Option 1",
+        widget=forms.TextInput(attrs={'size' : 64}))
+    opt4 = forms.CharField(
+        label="Option 1",
+        widget=forms.TextInput(attrs={'size' : 64}))
+    ans = forms.IntegerField(label="Answer")
+    tags = forms.CharField(
+        label="Tags",
+        required=False,
+        widget=forms.TextInput(attrs={'size' : 64}))

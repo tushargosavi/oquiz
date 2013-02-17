@@ -9,6 +9,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth import logout
 from quiz.models import Question, Answer
 from quiz.forms import RegistrationForm
+from quiz.forms import QuestionSaveForm
 
 def main_page(request):
     return render(request, 'quiz/main_page.html',
@@ -64,3 +65,11 @@ def register_page(request):
         return render_to_response(
             'registration/register.html',
             variables)
+
+def question_save_page(request):
+    if request.method == 'POST':
+        print "POST called"
+    else:
+        form = QuestionSaveForm()
+        return render(request, "quiz/question_save.html",
+               { 'form' : form })

@@ -19,3 +19,11 @@ class Answer(models.Model):
     question = models.ForeignKey(Question)
     answer = models.IntegerField()
     numAttempts = models.IntegerField()
+    def __str__(self):
+        return "[" + self.user.username + "," +  question.id + "]" 
+
+class Tag(models.Model):
+    name = models.CharField(max_length=64, unique=True)
+    questions = models.ManyToManyField(Question)
+    def __str__(self):
+        return self.name
