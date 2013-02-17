@@ -8,6 +8,7 @@ from django.shortcuts import render_to_response, render
 from django.contrib.auth.models import User
 from django.contrib.auth import logout
 from quiz.models import Question, Answer
+from quiz.forms import RegistrationForm
 
 def main_page(request):
     return render(request, 'quiz/main_page.html',
@@ -33,3 +34,33 @@ def user_page(request, username):
 def logout_page(request):
     logout(request)
     return HttpResponseRedirect("/")
+
+def register_error(request, form):
+    return render(request, "registration/register.html",
+           { 'form' : form });
+
+def register_page(request):
+    if request.method == 'POST':
+        form = RegistrationForm(request.POST)
+        if form.is_valid():
+            user = User.objects.create(
+                username = form.cleaned_data['username'],
+                password = form.cleaned_data['password1'],
+                email = form.cleaned_data['email']
+                )
+            # hack, somehow create do not encrypt the password
+            # while saving into database. use ser_password to
+            # save encrypted password.
+            user.set_password(form.cleaned_data['password1'])
+            user.save()
+            return HttpResponseRedirect("/register/success")
+        else:
+            return register_error(request, form)
+    else:
+        form = RegistrationForm()
+        variables = RequestContext(request, {
+                'form' : form
+                })
+        return render_to_response(
+            'registration/register.html',
+            variables)
