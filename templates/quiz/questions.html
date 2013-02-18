@@ -1,0 +1,23 @@
+{% if questions %}
+{% for question in questions %}
+<div class="question">
+  <form type="post" action="/answer/">
+    <p>{{ question.text }}</p>
+    <ul>
+      <li>{{ question.opt1 }}</li>
+      <li>{{ question.opt2 }}</li>
+      <li>{{ question.opt3 }}</li>
+      <li>{{ question.opt4 }}</li>
+    </ul>
+    <input type="submit" value="Submit" />
+    <ul>
+      {% for tag in question.tags_set %}
+      <li>{{ tag.name }}</li>
+      {% endfor %}
+    </ul>
+  </form>
+</div>
+{% endfor %}
+{% else %}
+<p>No questions found</p>
+{% endif %}

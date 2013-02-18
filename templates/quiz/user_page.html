@@ -2,13 +2,5 @@
 {% block title %}Quiz User : {{ username }} {% endblock %}
 {% block head %}Questions for {{ username }} {% endblock %}
 {% block content %}
-    {% if questions %}
-    <u1>
-      {% for question in questions %}
-      <li>A question </li>
-      {% endfor %}
-    </u1>
-    {% else %}
-    <p> No Questions found. </p>
-    {% endif %}
+{% include "quiz/questions.html" %}
 {% endblock %}
