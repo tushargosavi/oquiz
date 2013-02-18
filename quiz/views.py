@@ -29,6 +29,7 @@ def user_page(request, username):
     variables = RequestContext(request, {
             'username' : username,
             'questions' : questions,
+            'show_tags' : True,
             })
 
     output = template.render(variables)
