@@ -4,7 +4,7 @@ from django.http import HttpResponse, Http404, HttpResponseRedirect
 from django.template import Context,RequestContext
 from django.template.loader import get_template
 from django.views.decorators.csrf import csrf_exempt
-from django.shortcuts import render_to_response, render
+from django.shortcuts import render_to_response, render, get_object_or_404
 from django.contrib.auth.models import User
 from django.contrib.auth import logout
 from django.contrib.auth.decorators import login_required
@@ -18,13 +18,8 @@ def main_page(request):
 
 @login_required
 def user_page(request, username):
-    try:
-        user = User.objects.get(username=username)
-    except:
-        raise Http404("Requested user not found %s." % username)
-
+    user = get_object_or_404(User, username=username)
     questions = Question.objects.all()
-    
     template = get_template("quiz/user_page.html")
     variables = RequestContext(request, {
             'username' : username,

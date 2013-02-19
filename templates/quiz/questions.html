@@ -3,12 +3,11 @@
 <div class="question">
   <form type="post" action="/answer/">
     <p>{{ question.text }}</p>
-    <ul>
-      <li>{{ question.opt1 }}</li>
-      <li>{{ question.opt2 }}</li>
-      <li>{{ question.opt3 }}</li>
-      <li>{{ question.opt4 }}</li>
-    </ul>
+    <input type="checkbox" name="ans" id="1" value={{ question.opt1 }}/><label for="1">{{ question.opt1 }}</label>
+    <input type="checkbox" name="ans" id="2" value={{ question.opt2 }}/><label for="2">{{ question.opt2 }}</label>
+    <input type="checkbox" name="ans" id="3" value={{ question.opt3 }}/><label for="3">{{ question.opt3 }}</label>
+    <input type="checkbox" name="ans" id="4" value={{ question.opt4 }}/><label for="4">{{ question.opt4 }}</label>
+    <hr>
     <input type="submit" value="Submit" />
     {% if show_tags %}
     <ul>

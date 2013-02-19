@@ -5,3 +5,13 @@
 input {
     display: block;
 }
+
+.question input {
+    display: inline;
+}
+
+.question ul.tags, .question ul.tags li {
+    display: inline;
+    margin: 0;
+    padding: 0;
+}
