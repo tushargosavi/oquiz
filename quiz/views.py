@@ -82,3 +82,14 @@ def question_save_page(request):
 
     return render(request, "quiz/question_save.html",
                   { 'form' : form })
+
+
+# Tag page
+def tag_page(request, tag_name):
+    tag = get_object_or_404(Tag, name=tag_name)
+    questions = tag.questions.order_by('-id')
+    return render(request, "quiz/tag_page.html",
+                  { 'questions' : questions,
+                    'show_tags' : False,
+                    'show_user' : True,
+                    'tag_name'  : tag_name })
