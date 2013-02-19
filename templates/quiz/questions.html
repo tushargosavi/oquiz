@@ -10,9 +10,10 @@
     <hr>
     <input type="submit" value="Submit" />
     {% if show_tags %}
+    Tags : 
     <ul>
       {% for tag in question.tag_set.all %}
-      <li>{{ tag.name }}</li>
+      <li><a href="/tag/{{ tag.name }}">{{ tag.name }}</a></li>
       {% endfor %}
     </ul>
     {% endif %}
