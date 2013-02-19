@@ -1,0 +1,6 @@
+{% extends "base.html" %}
+{% block title %}Tag : {{ tag_name }} {% endblock %}
+{% block head %}Questions for {{ tag_name }} {% endblock %}
+{% block content %}
+{% include "quiz/questions.html" %}
+{% endblock %}

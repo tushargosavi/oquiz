@@ -93,3 +93,31 @@ def tag_page(request, tag_name):
                     'show_tags' : False,
                     'show_user' : True,
                     'tag_name'  : tag_name })
+
+def tag_cloude_page(request):
+    MAX_WEIGHT = 5
+    tags = Tag.objects.order_by('name')
+
+    # Calculate tag, min and max counts.
+    min_count = max_count = tags[0].questions.count()
+    for tag in tags:
+        tag.count = tag.questions.count()
+        if tag.count < min_count:
+            min_count = tag.count
+        if max_count < tag.count:
+            max_count = tag.count
+
+    # Calculate count range. Avoid dividing by zero.
+    diff = float(max_count - min_count)
+    if diff == 0.0:
+        diff = 1.0
+
+    # Calculate tag weights.
+    for tag in tags:
+        tag.weight = int(
+            MAX_WEIGHT * (tag.count - min_count) / diff
+            )
+
+    return render(request, 'quiz/tag_cloud_page.html', {
+            'tags' : tags })
+                    
