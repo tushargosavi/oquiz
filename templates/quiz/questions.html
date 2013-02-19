@@ -1,22 +1,25 @@
 {% if questions %}
 {% for question in questions %}
+<hr>
 <div class="question">
   <form type="post" action="/answer/">
     <p>{{ question.text }}</p>
-    <input type="checkbox" name="ans" id="1" value={{ question.opt1 }}/><label for="1">{{ question.opt1 }}</label>
-    <input type="checkbox" name="ans" id="2" value={{ question.opt2 }}/><label for="2">{{ question.opt2 }}</label>
-    <input type="checkbox" name="ans" id="3" value={{ question.opt3 }}/><label for="3">{{ question.opt3 }}</label>
-    <input type="checkbox" name="ans" id="4" value={{ question.opt4 }}/><label for="4">{{ question.opt4 }}</label>
-    <hr>
-    <input type="submit" value="Submit" />
+    <label><input type="checkbox" name="ans" id="1" value={{ question.opt1 }}/> {{ question.opt1 }}</label>
+    <label><input type="checkbox" name="ans" id="2" value={{ question.opt2 }}/> {{ question.opt2 }}</label>
+    <label><input type="checkbox" name="ans" id="3" value={{ question.opt3 }}/> {{ question.opt3 }}</label>
+    <label><input type="checkbox" name="ans" id="4" value={{ question.opt4 }}/> {{ question.opt4 }}</label>
     {% if show_tags %}
     Tags : 
-    <ul>
+    <div class="item-tags">
       {% for tag in question.tag_set.all %}
-      <li><a href="/tag/{{ tag.name }}">{{ tag.name }}</a></li>
+      <div class="tag removable_tag">
+	<div class="name"><a href="/tag/{{ tag.name }}">{{ tag.name }}</a></div>
+	<div class="remove"></div>
+      </div>
       {% endfor %}
-    </ul>
+    </div>
     {% endif %}
+    <input type="submit" value="Submit" />
   </form>
 </div>
 {% endfor %}
