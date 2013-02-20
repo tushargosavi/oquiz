@@ -9,7 +9,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth import logout
 from django.contrib.auth.decorators import login_required
 from quiz.models import Question, Answer, Tag
-from quiz.forms import RegistrationForm, SearchForm
+from quiz.forms import RegistrationForm
 from quiz.forms import QuestionSaveForm
 
 @login_required
@@ -145,12 +145,15 @@ def search_page(request):
                 q = tag.questions.all()[:10]
                 questions.extend(list(q))
 
-    return render(request, 'quiz/search.html',
-                  {
-                    'query' : query,
-                    'questions' : questions,
-                    'show_user' : True,
-                    'show_tags' : True,
-                    'show_result' : show_result
-                    })
-                  
+    variables = {
+        'query' : query,
+        'questions' : questions,
+        'show_user' : True,
+        'show_tags' : True,
+        'show_result' : show_result
+        }
+
+    if request.GET.has_key('ajax'):
+        return render(request, 'quiz/questions.html', variables)
+    else:
+        return render(request, 'quiz/search.html', variables)

@@ -61,7 +61,7 @@
       </div>
     </div>
 
-    <div class="container">
+    <div class="container" id="container">
 
     <h1>{% block head %}{% endblock %}</h1>
     {% block content %}{% endblock %}
@@ -73,7 +73,7 @@
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="/static/external/js/lib/jquery.js"></script>
     <script src="/static/external/js/lib/bootstrap.min.js"></script>
-
+    <script src="/static/app/js/app.js"></script>
     <!-- other js pages required by pages -->
     {% block scripts %}{% endblock %}
   </body>
