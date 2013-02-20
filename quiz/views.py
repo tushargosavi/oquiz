@@ -12,9 +12,9 @@ from quiz.models import Question, Answer, Tag
 from quiz.forms import RegistrationForm
 from quiz.forms import QuestionSaveForm
 
+@login_required
 def main_page(request):
-    return render(request, 'quiz/main_page.html',
-           { 'user' : request.user })
+    return HttpResponseRedirect("/user/" + request.user.username);
 
 @login_required
 def user_page(request, username):
@@ -30,11 +30,15 @@ def user_page(request, username):
     output = template.render(variables)
     return HttpResponse(output)
 
+@login_required
 def logout_page(request):
     logout(request)
     return HttpResponseRedirect("/")
 
 def register_page(request):
+    if request.user.is_authenticated():
+        return HttpResponseRedirect("/")
+
     if request.method == 'POST':
         form = RegistrationForm(request.POST)
         if form.is_valid():
@@ -85,6 +89,7 @@ def question_save_page(request):
 
 
 # Tag page
+@login_required
 def tag_page(request, tag_name):
     tag = get_object_or_404(Tag, name=tag_name)
     questions = tag.questions.order_by('-id')
@@ -94,6 +99,7 @@ def tag_page(request, tag_name):
                     'show_user' : True,
                     'tag_name'  : tag_name })
 
+@login_required
 def tag_cloude_page(request):
     MAX_WEIGHT = 5
     tags = Tag.objects.order_by('name')
