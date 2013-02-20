@@ -6,7 +6,7 @@ from django.views.generic.simple import direct_to_template
 # admin.autodiscover()
 
 from quiz.views import main_page, user_page, logout_page, register_page
-from quiz.views import question_save_page, tag_page, tag_cloude_page
+from quiz.views import question_save_page, tag_page, tag_cloude_page, search_page
 
 urlpatterns = patterns('',
     (r'^$', main_page),
@@ -19,6 +19,7 @@ urlpatterns = patterns('',
     (r'^question/add/$', question_save_page),
     (r'^tag/([^\s]+)/$', tag_page),
     (r'^tag/$', tag_cloude_page),
+    (r'^search/$', search_page),
     # Examples:
     # url(r'^$', 'oquiz.views.home', name='home'),
     # url(r'^oquiz/', include('oquiz.foo.urls')),

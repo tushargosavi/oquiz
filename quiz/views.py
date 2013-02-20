@@ -9,7 +9,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth import logout
 from django.contrib.auth.decorators import login_required
 from quiz.models import Question, Answer, Tag
-from quiz.forms import RegistrationForm
+from quiz.forms import RegistrationForm, SearchForm
 from quiz.forms import QuestionSaveForm
 
 @login_required
@@ -127,3 +127,30 @@ def tag_cloude_page(request):
     return render(request, 'quiz/tag_cloud_page.html', {
             'tags' : tags })
                     
+
+@login_required
+def search_page(request):
+    questions = []
+    show_result = False
+    if request.GET.has_key('query'):
+        show_result = True
+        query = request.GET['query'].strip()
+        if query:
+            q = Question.objects.filter(text__icontains=query)[:10]
+            questions.extend(list(q))
+            # Also search tags
+            tags = Tag.objects.filter(name__icontains=query)[:10]
+            # for each tag only show 10 questions.
+            for tag in tags:
+                q = tag.questions.all()[:10]
+                questions.extend(list(q))
+
+    return render(request, 'quiz/search.html',
+                  {
+                    'query' : query,
+                    'questions' : questions,
+                    'show_user' : True,
+                    'show_tags' : True,
+                    'show_result' : show_result
+                    })
+                  

@@ -42,9 +42,11 @@
 	    <li><a href="/question/add">Add Question</a></li>
 	    {% endif %}
 	  </ul>
-	  <form class="navbar-search pull-left">
-	    <input type="text" class="search-query" placeholder="Search">
+	  {% if user.is_authenticated %}
+	  <form class="navbar-search pull-left" method="get" action="/search">
+	    <input type="text" class="search-query" name="query" placeholder="Search">
 	  </form>
+	  {% endif %}
 	  <div class="pull-right">
 	    <ul class="nav">
 	      {% if user.is_authenticated %}
@@ -59,7 +61,6 @@
       </div>
     </div>
 
-
     <div class="container">
 
     <h1>{% block head %}{% endblock %}</h1>
@@ -73,5 +74,7 @@
     <script src="/static/external/js/lib/jquery.js"></script>
     <script src="/static/external/js/lib/bootstrap.min.js"></script>
 
+    <!-- other js pages required by pages -->
+    {% block scripts %}{% endblock %}
   </body>
 </html>
